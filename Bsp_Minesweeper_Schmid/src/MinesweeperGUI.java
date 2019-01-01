@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Panel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -10,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 public class MinesweeperGUI extends JFrame {
 
@@ -46,10 +48,10 @@ public class MinesweeperGUI extends JFrame {
                 label.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        if(e.getButton() == 1){
+                        if(SwingUtilities.isLeftMouseButton(e)){
                             makeMove(e);
                         }
-                        else if(e.getButton() == 2){
+                        else if(SwingUtilities.isRightMouseButton(e)){
                             setFlag(e);
                         }
                     }
@@ -86,7 +88,10 @@ public class MinesweeperGUI extends JFrame {
         int row = Integer.parseInt(e.getComponent().getName()) / 10;
         int col = Integer.parseInt(e.getComponent().getName()) % 10;
         if(minesweeperbl.flag(row, col)){
-            labelArr[row][col].setIcon(new ImageIcon("./flag.png"));
+            labelArr[row][col]
+                    .setIcon(new ImageIcon(new ImageIcon("./flag.png")
+                            .getImage()
+                            .getScaledInstance(-1, 50, Image.SCALE_SMOOTH)));
         }
     }
 
@@ -95,7 +100,10 @@ public class MinesweeperGUI extends JFrame {
         int col = Integer.parseInt(e.getComponent().getName()) % 10;
         int handle = minesweeperbl.setField(row, col);
         if (handle == -1) {
-            labelArr[row][col].setBackground(Color.RED);
+            labelArr[row][col]
+                    .setIcon(new ImageIcon(new ImageIcon("./bomb.png")
+                            .getImage()
+                            .getScaledInstance(-1, 50, Image.SCALE_SMOOTH)));
             JOptionPane.showMessageDialog(null, "You lose!");
             reset();
         }
@@ -111,6 +119,7 @@ public class MinesweeperGUI extends JFrame {
             for (int j = 0; j < labelArr.length; j++) {
                 labelArr[i][j].setBackground(Color.GRAY);
                 labelArr[i][j].setText("");
+                labelArr[i][j].setIcon(null);
             }
         }
         minesweeperbl = new MinesweeperBL(initRowColSize, amountBombs);
