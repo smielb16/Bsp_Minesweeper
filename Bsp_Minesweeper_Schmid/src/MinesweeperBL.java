@@ -36,7 +36,11 @@ public class MinesweeperBL {
         else if (field[row][col] == FieldValue.OPEN){
             return bombsInVicinity(row, col);
         }
-        return 0;
+        return -2;
+    }
+    
+    public FieldValue getStatus(int row, int col){
+        return field[row][col];
     }
     
     public boolean flag(int row, int col){

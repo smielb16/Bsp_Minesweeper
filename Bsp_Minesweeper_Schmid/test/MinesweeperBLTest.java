@@ -22,23 +22,20 @@ import org.junit.runners.Parameterized;
 public class MinesweeperBLTest {
     
     @Parameterized.Parameter(value = 0)
-    public int col;
+    public int row;
 
     @Parameterized.Parameter(value = 1)
-    public int timesCalled;
-    
-    @Parameterized.Parameter(value = 2)
-    public int colexp;
+    public int col;
 
     @Parameterized.Parameters(name = "Test")
     public static Iterable<Object[]> data1() {
         return Arrays.asList(new Object[][]{
-            {1, 4, 6-4},
-            {2, 2, 6-2},
-            {3, 5, 6-5},
-            {4, 1, 6-1},
-            {5, 1, 6-1},
-            {6, 3, 6-3},
+            {1, 4},
+            {2, 2},
+            {3, 5},
+            {4, 1},
+            {5, 1},
+            {6, 3},
         });
     }
     
@@ -66,15 +63,24 @@ public class MinesweeperBLTest {
      */
     @Test
     public void testSetField() {
-        System.out.println("setField");
-        int row = 0;
-        int col = 0;
-        MinesweeperBL instance = null;
-        int expResult = 0;
-        int result = instance.setField(row, col);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        MinesweeperBL bl = new MinesweeperBL(8, 20);
+        int result = bl.setField(row, col);
+        FieldValue value = bl.getStatus(row, col);
+        int exp = determine(value);
+        if(0 <= result && result <= 8){
+            result = 1;
+        }
+        assertEquals(exp, result);
+    }
+    
+    public int determine(FieldValue value){
+        switch(value){
+            case OPEN:
+                return 1;
+            case BOMB:
+                return -1;
+        }
+        return -2;
     }
     
 }
