@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import java.util.Arrays;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,6 +20,27 @@ import org.junit.runners.Parameterized;
  */
 @RunWith(value = Parameterized.class)
 public class MinesweeperBLTest {
+    
+    @Parameterized.Parameter(value = 0)
+    public int col;
+
+    @Parameterized.Parameter(value = 1)
+    public int timesCalled;
+    
+    @Parameterized.Parameter(value = 2)
+    public int colexp;
+
+    @Parameterized.Parameters(name = "Test")
+    public static Iterable<Object[]> data1() {
+        return Arrays.asList(new Object[][]{
+            {1, 4, 6-4},
+            {2, 2, 6-2},
+            {3, 5, 6-5},
+            {4, 1, 6-1},
+            {5, 1, 6-1},
+            {6, 3, 6-3},
+        });
+    }
     
     public MinesweeperBLTest() {
     }
