@@ -33,6 +33,9 @@ public class MinesweeperBL {
         } else if (field[row][col] == FieldValue.BOMB) {
             return -1;
         }
+        else if (field[row][col] == FieldValue.OPEN){
+            return bombsInVicinity(row, col);
+        }
         return 0;
     }
     

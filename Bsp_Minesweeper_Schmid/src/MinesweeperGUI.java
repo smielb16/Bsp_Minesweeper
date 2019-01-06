@@ -87,11 +87,14 @@ public class MinesweeperGUI extends JFrame {
     private void setFlag(MouseEvent e){
         int row = Integer.parseInt(e.getComponent().getName()) / 10;
         int col = Integer.parseInt(e.getComponent().getName()) % 10;
-        if(minesweeperbl.flag(row, col)){
+        if(minesweeperbl.flag(row, col) && labelArr[row][col].getIcon() == null){
             labelArr[row][col]
                     .setIcon(new ImageIcon(new ImageIcon("./flag.png")
                             .getImage()
                             .getScaledInstance(-1, 50, Image.SCALE_SMOOTH)));
+        }
+        else{
+            labelArr[row][col].setIcon(null);
         }
     }
 
