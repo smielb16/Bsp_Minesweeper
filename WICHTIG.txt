@@ -1,0 +1,3 @@
+Leider konnte ich das rekursive Aufdecken in dem Fall,
+es gäbe keine Bombe in der Umgebung, trotz aufwendiger
+Recherche nicht implementieren.
